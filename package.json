@@ -1,0 +1,17 @@
+{
+  "name": "friend-finder",
+  "version": "1.0.0",
+  "description": "A heroku deployed app that pairs you with a compatible friend based on answers to a survey!",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  },
+  "scripts": {
+    "start": "node server.js"
+  }
+}
