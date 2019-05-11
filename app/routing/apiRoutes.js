@@ -1,20 +1,16 @@
-var notes = require('../data/notes');
+var friends = require('../data/friends');
 
 module.exports = function(app) {
-  app.get('/api/notes', function(req, res) {
-    res.json(notes.getNotes());
-  });
+    //GET route used to display a JSON of all possible friends.
+    app.get('/api/friends', function(req, res) {
+        res.json(friends.getFriends());
+    });
 
-  app.post('/api/notes', function(req, res) {
-    var newNote = req.body;
-    notes.addNote(newNote);
+    //POST route that handles incoming survey results & compatibility logic.
+    app.post('/api/friends', function(req, res) {
+        var newFriend = req.body;
+        friends.push(newFriend);
 
-    res.json(newNote);
-  });
-
-  app.delete('/api/notes/:id', function(req, res) {
-    notes.removeNote(req.params.id);
-
-    res.end();
-  });
+        res.json(newFriend);
+    });
 };

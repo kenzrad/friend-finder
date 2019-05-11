@@ -1,13 +1,19 @@
 var path = require('path');
 
 module.exports = function(app) {
-  // "/notes" responds with the notes.html file
-  app.get('/notes', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/notes.html'));
+
+  //A GET Route to `/survey` which should display the survey page.
+  app.get('/', function(req, res) {
+    res.sendFile(path.join(__dirname, '../public/home.html'));
   });
 
-  // All other routes respond with the index.html file
+  app.get('/survey', function(req, res) {
+    res.sendFile(path.join(__dirname, '../public/survey.html'));
+  });
+
+  //A default, catch-all route that leads to `home.html` which displays the home page.
   app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, '../public/index.html'));
+    res.sendFile(path.join(__dirname, '../public/home.html'));
   });
 };
+
