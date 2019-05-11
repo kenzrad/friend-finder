@@ -20,7 +20,7 @@ $("#submit-survey").on("click", function(event) {
 
 function postData(userData) {
     $.post("/api/friends", userData, function(data) {
-        console.log(`Posting data ${data}`);
+        console.log(`Posting data ${JSON.stringify(data)}`);
         // Grab the result from the AJAX post so that the best match's name and photo are displayed.
         // $("#match-name").text(data.name);
         // $("#match-img").attr("src", data.photo);
@@ -33,18 +33,26 @@ function postData(userData) {
     //Convert each user's results into a simple array of numbers (ex: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`)
 
     //take this array and confirm compatibility
-    getFriendData(userData);
+    getFriendData();
 }
 
 
-function getFriendData(newFriend) {
+function getFriendData() {
     console.log("I'm in the get friends function!")
-
-    checkCompatibility(newFriend, allFriends);
+    $.ajax({
+        url: '/api/friends',
+        method: 'GET'
+    }).then(function(data) {
+        console.log("getting the data");
+        console.log(data);
+        console.log(`Getting data: ${JSON.stringify(data)}`);
+        // checkCompatibility(newFriend, allFriends);
+    })
 }
 
 
-function checkCompatibility(userData) {
+
+function checkCompatibility() {
     //With that done, compare the difference between current user's scores against those from other users, question by question. Add up the differences to calculate the `totalDifference`
 
     //Example:
