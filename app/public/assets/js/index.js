@@ -45,7 +45,7 @@ function getFriendData(userSurveyData) {
 function checkCompatibility(userSurveyData, allData) {
     //Convert each user's results into a simple array of numbers (ex: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`)
     var bestFriend = {
-        name: "No Friends",
+        name: "You Have No Friends",
         image: "https://hackspirit.com/wp-content/uploads/2018/08/lonelyl.jpg",
         score: 0,
     };
