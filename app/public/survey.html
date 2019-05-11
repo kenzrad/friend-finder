@@ -9,7 +9,11 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/4.1.3/flatly/bootstrap.min.css" />
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
     crossorigin="anonymous">
-  <!-- <link rel="stylesheet" href="/assets/css/styles.css"> -->
+  <link rel="stylesheet" href="/assets/css/styles.css">
+
+    <!--jQuery-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -83,7 +87,6 @@
             <h5 class="my-2">Question 4</h5>
             <label class="my-2" for="question4">I am not actually paying attention to the questions in the survey because I have too many assignments to grade</label>
             <select class="form-control" id="question4" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -95,7 +98,6 @@
             <h5 class="my-2">Question 5</h5>
             <label class="my-2" for="question5">I love lamp</label>
             <select class="form-control" id="question5" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -107,7 +109,6 @@
             <h5 class="my-2">Question 6</h5>
             <label class="my-2" for="question6">I actually don't need any new friends because I prefer the company of my two dogs and three-legged cat</label>
             <select class="form-control" id="question6" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -119,7 +120,6 @@
             <h5 class="my-2">Question 7</h5>
             <label fclass="my-2" or="question7">No one ever gets my jokes because they are too elevated</label>
             <select class="form-control" id="question7" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -131,7 +131,6 @@
             <h5 class="my-2">Question 8</h5>
             <label class="my-2" for="question8">I often think about packing my jansport for the apocalypse</label>
             <select class="form-control" id="question8" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -143,7 +142,6 @@
             <h5 class="my-2">Question 9</h5>
             <label class="my-2" for="question9">I keep duct tape, a good pair of socks, and bananagrams in the trunk of my car for emergencies</label>
             <select class="form-control" id="question9" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -158,7 +156,6 @@
         <div class="form-group mb-5">
             <label fclass="my-2" or="question10">I feel like someone is watching me right now</label>
             <select class="form-control" id="question10" style="width: 300px">
-                <option>Click here to answer</option>
                 <option>1 (Strongly Disagree)</option>
                 <option>2</option>
                 <option>3</option>
@@ -168,16 +165,32 @@
         </div>
         <button id="submit-survey" class="btn btn-primary" type="button">Submit form</button>
     </form>
-</div>
+
     <hr>
     <br>
     <br>
-
-    <!-- Submit Button
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
-     Submit</button> -->
-
     <hr>
+
+    <div class="modal modal-lg fade" id="best-friend-modal"  role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modal-title">Your new best friend is....</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <h2 class="best-friend-name"><strong></strong></h2>
+                    <img id="best-friend-image" class="img-fluid img-thumbnail" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="best-friend-image-img">
+                    <h3 id="best-friend-score"></h3>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+        </div>
     <footer class="footer">
       <div class="container">
         <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
@@ -185,35 +198,9 @@
     </footer>
 
     </div>
+    
 
 
-<!-- Once you've found the current user's most compatible friend, display the result as a modal pop-up.
-
-The modal should display both the name and picture of the closest match.
-     -->
-
-  <!-- Modal -->
-  <div id="results-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h2 class="modal-title"><strong>Best Match</strong></h2>
-        </div>
-        <div class="modal-body">
-          <h2 id="match-name"></h2>
-          <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="/assets/js/index.js"></script>
 
 </body>

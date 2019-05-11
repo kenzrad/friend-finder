@@ -10,10 +10,11 @@ $("#submit-survey").on("click", function(event) {
 
     //loop to get all of the survey response data from the 10 questions
     for(i=1; i<11; i++) {
-        surveyData.surveyResponses.push($(`#question${i}`).val())
+        surveyData.surveyResponses.push(parseInt($(`#question${i}`).val()))
     }
     console.log(surveyData);
     postData(surveyData);
+    getFriendData(surveyData.surveyResponses);
 
 });
 
@@ -21,49 +22,71 @@ $("#submit-survey").on("click", function(event) {
 function postData(userData) {
     $.post("/api/friends", userData, function(data) {
         console.log(`Posting data ${JSON.stringify(data)}`);
-        // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-        // $("#match-name").text(data.name);
-        // $("#match-img").attr("src", data.photo);
-    
-        // Show the modal with the best match
-        // $("#results-modal").modal("toggle");
-    
-    });
-
-    //Convert each user's results into a simple array of numbers (ex: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`)
-
-    //take this array and confirm compatibility
-    getFriendData();
+    });  
 }
 
 
-function getFriendData() {
+function getFriendData(userSurveyData) {
     console.log("I'm in the get friends function!")
     $.ajax({
         url: '/api/friends',
         method: 'GET'
     }).then(function(data) {
         console.log("getting the data");
-        console.log(data);
         console.log(`Getting data: ${JSON.stringify(data)}`);
-        // checkCompatibility(newFriend, allFriends);
+        checkCompatibility(userSurveyData, data);
+
+
     })
 }
 
 
 
-function checkCompatibility() {
-    //With that done, compare the difference between current user's scores against those from other users, question by question. Add up the differences to calculate the `totalDifference`
+function checkCompatibility(userSurveyData, allData) {
+    //Convert each user's results into a simple array of numbers (ex: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`)
+    var bestFriend = {
+        name: "No Friends",
+        image: "https://hackspirit.com/wp-content/uploads/2018/08/lonelyl.jpg",
+        score: 0,
+    };
 
-    //Example:
-        //User 1: `[5, 1, 4, 4, 5, 1, 2, 5, 4, 1]`
-        //User 2: `[3, 2, 6, 4, 5, 1, 2, 5, 4, 1]`
-        //Total Difference: **2 + 1 + 2 =** **_5_**
+    for (i=0 ; i < allData.length; i++) {
+        var currentName = allData[i].userName;
+        var currentImage = allData[i].userImage;
+        var currentSurveyData = allData[i].surveyData;
+        var currentScore = 0;
 
-    //Remember to use the absolute value of the differences. Put another way: no negative solutions! Your app should calculate both `5-3` and `3-5` as `2`, and so on.
+        for(j=0; j < currentSurveyData.length; j++) {
+            var calc = Math.abs(parseInt(currentSurveyData[j]) - parseInt(userSurveyData[j]))
+            currentScore += calc;
+        }
+
+        var convertedScore = (40 - currentScore / 40);
+        console.log(`${currentName} converted score is ${convertedScore}`)
+        if (convertedScore > currentScore) {
+            bestFriend.name = currentName;
+            bestFriend.image = currentImage;
+            bestFriend.score = convertedScore;
+            console.log(`Your latest best friend is ${bestFriend.name} with a score of ${bestFriend.score}%`)
+        }
+    };
+
+    printBestFriend(bestFriend);
+}
+
+function printBestFriend(bestFriend) {
+    console.log("I'm in the best friend function!");
+    //put match data in the modal
+    $("#best-friend-name").text(`${bestFriend.name}`);
+    $("#best-friend-image").attr("src", bestFriend.image);
+    $("#best-friend-score").text(`Compatibility Score: ${bestFriend.score}%`);
+
+    //show the modal
+    $("#best-friend-modal").modal("show");
+
+    $("#test-modal-btn").click(function(){
+        $("#exampleModalCenter").modal("show");
+    });
     
-    //The closest match will be the user with the least amount of difference.
-
-    //run modal
-
+       
 }
