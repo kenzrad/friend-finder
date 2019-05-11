@@ -83,10 +83,6 @@ function printBestFriend(bestFriend) {
 
     //show the modal
     $("#best-friend-modal").modal("show");
-
-    $("#test-modal-btn").click(function(){
-        $("#exampleModalCenter").modal("show");
-    });
     
        
 }
