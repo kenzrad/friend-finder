@@ -50,10 +50,10 @@ function checkCompatibility(userSurveyData, allData) {
         score: 0,
     };
 
-    for (i=0 ; i < allData.length; i++) {
+    for (i=0 ; i < allData.length-1; i++) {
         var currentName = allData[i].userName;
         var currentImage = allData[i].userImage;
-        var currentSurveyData = allData[i].surveyData;
+        var currentSurveyData = allData[i].surveyResponses;
         var currentScore = 0;
 
         for(j=0; j < currentSurveyData.length; j++) {
@@ -61,9 +61,9 @@ function checkCompatibility(userSurveyData, allData) {
             currentScore += calc;
         }
 
-        var convertedScore = (40 - currentScore / 40);
+        var convertedScore = Math.floor(((40 - currentScore) / 40 * 100));
         console.log(`${currentName} converted score is ${convertedScore}`)
-        if (convertedScore > currentScore) {
+        if (convertedScore > bestFriend.score) {
             bestFriend.name = currentName;
             bestFriend.image = currentImage;
             bestFriend.score = convertedScore;
